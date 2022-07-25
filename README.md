@@ -1,5 +1,7 @@
 # highcharts-vue-force-directed-graph
 
+Using https://github.com/highcharts/highcharts-vue to render a force directed graph in Vue3
+
 ## Project setup
 ```
 npm install

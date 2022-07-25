@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <JwtVisualiser/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import JwtVisualiser from './components/JwtVisualiser.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    JwtVisualiser
   }
 }
 </script>

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import Highcharts from 'highcharts';
 
 export default {
   name: 'ForceDirectedGraph',
@@ -53,6 +54,50 @@ export default {
         }]
       }
     }
+  },
+  beforeMount() {
+    Highcharts.addEvent(
+        Highcharts.Series,
+        'afterSetOptions',
+        function (e) {
+          var colors = Highcharts.getOptions().colors,
+              i = 0,
+              nodes = {};
+
+          if (
+              this instanceof Highcharts.seriesTypes.networkgraph &&
+              e.options.id === 'lang-tree'
+          ) {
+            e.options.data.forEach(function (link) {
+
+              if (link[0] === 'cm-core-api') {
+                nodes['cm-core-api'] = {
+                  id: 'cm-core-api',
+                  marker: {
+                    radius: 20
+                  }
+                };
+                nodes[link[1]] = {
+                  id: link[1],
+                  marker: {
+                    radius: 10
+                  },
+                  color: colors[i++]
+                };
+              } else if (nodes[link[0]] && nodes[link[0]].color) {
+                nodes[link[1]] = {
+                  id: link[1],
+                  color: nodes[link[0]].color
+                };
+              }
+            });
+
+            e.options.nodes = Object.keys(nodes).map(function (id) {
+              return nodes[id];
+            });
+          }
+        }
+    );
   }
 }
 </script>
